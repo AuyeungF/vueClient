@@ -36,7 +36,7 @@ router.use(function (req, res, next) {
 
 });
 
-// 创建账号接口
+//创建账号接口
 router.post('/api/createAccount', (req, res, next) => {
 
 // 这里的req.body能够使用就在index.js中引入了const bodyParser = require('body-parser')
@@ -93,7 +93,7 @@ router.post('/api/createAccount', (req, res, next) => {
 
 });
 //登录
-router.post('/api/login',(req , res , next)=>{
+router.post('/api/login',(req,res,next)=>{
   var username = req.body.username;
   var password = req.body.password;
 
@@ -199,7 +199,7 @@ router.delete('/api/delUser/:id',(req,res,next) => {
       res.json(data);
       return;
     })
-})
+});
 
 
 module.exports = router

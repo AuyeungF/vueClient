@@ -2,7 +2,7 @@
   <div>
     <el-container>
         <!-- 左边导航栏-->
-        <div class="asidemenu" :width="menuWidth">
+         <div class="asidemenu" :width="menuWidth">
           <el-menu
             :router="true"
             :default-active="$route.path"
@@ -16,7 +16,7 @@
             :style="{height:fullHeight+'px'}"
           >
             <div class="menu-logo">
-              <img src="../assets/logo.png" alt="">
+              <img src="../assets/logo2.png" alt="">
             </div>
             <template v-for="(item,index) in $store.getters.routers" v-if="!item.hidden">
               <el-submenu :index="item.path" v-if="!item.leaf">
@@ -31,52 +31,51 @@
                 </el-menu-item-group>
               </el-submenu>
               <template v-else v-for="(child,num) in item.children">
-                <el-menu-item :index="child.path">
+                <el-menu-item :index="child.path" class="dashboard">
                   <i :class="item.icon"></i>
                   <span slot="title">{{child.name}}</span>
                 </el-menu-item>
               </template>
             </template>
-
           </el-menu>
         </div>
         <!-- 右边主题内容 -->
         <el-container>
-          <!-- 头部 -->
-          <el-header>
-            <div class="frameHead-leftElement">
-              <div class="frameHeader-toggle" @click="menuToggle">
-                <i class="el-icon-s-fold" v-if="!isCollapse"></i>
-                <i class="el-icon-s-unfold" v-if="isCollapse"></i>
-              </div>
-            </div>
-            <div class="frameHead-rightElement">
-              <!-- <img src="" alt="">-->
-              {{username}}
-              <div class="FRbox">
-                <div class="fr-content">
-                  <div class="frc-width">
-                    账号设置
-                  </div>
-                </div>
-                <div class="fr-content">
-                  <div class="frc-width" @click=" logout">退出登录</div>
-                </div>
-              </div>
-            </div>
-            <div class="frameHead-rightElement" >
-              <el-badge :value="value" :max="99" class="item" :hidden="value<=0 ? true:false">
-               消息
-              </el-badge>
-            </div>
-            <!--<div class="frameHead-rightElement-search">-->
-              <!--<el-input placeholder="站内搜索" size="mini" clearable>-->
-                <!--<i slot="prefix" class="el-input__icon el-icon-search"></i>-->
-              <!--</el-input>-->
+          <!--&lt;!&ndash; 头部 &ndash;&gt;-->
+          <!--<el-header>-->
+            <!--<div class="frameHead-leftElement">-->
+              <!--<div class="frameHeader-toggle" @click="menuToggle">-->
+                <!--<i class="el-icon-s-fold" v-if="!isCollapse"></i>-->
+                <!--<i class="el-icon-s-unfold" v-if="isCollapse"></i>-->
+              <!--</div>-->
             <!--</div>-->
+            <!--<div class="frameHead-rightElement">-->
+              <!--&lt;!&ndash; <img src="" alt="">&ndash;&gt;-->
+              <!--{{username}}-->
+              <!--<div class="FRbox">-->
+                <!--<div class="fr-content">-->
+                  <!--<div class="frc-width">-->
+                    <!--账号设置-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="fr-content">-->
+                  <!--<div class="frc-width" @click=" logout">退出登录</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="frameHead-rightElement" >-->
+              <!--<el-badge :value="value" :max="99" class="item" :hidden="value<=0 ? true:false">-->
+               <!--消息-->
+              <!--</el-badge>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div class="frameHead-rightElement-search">&ndash;&gt;-->
+              <!--&lt;!&ndash;<el-input placeholder="站内搜索" size="mini" clearable>&ndash;&gt;-->
+                <!--&lt;!&ndash;<i slot="prefix" class="el-input__icon el-icon-search"></i>&ndash;&gt;-->
+              <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-          </el-header>
-          <el-main>
+          <!--</el-header>-->
+          <el-main style="width: 100%;">
             <!--面包屑导航-->
             <div class="mainNavigation">
               <el-breadcrumb separator="/" style="display: inline-block">
@@ -84,13 +83,14 @@
                   <el-breadcrumb-item v-if="item.path !== '/dashboard'" :key="item.path" :to="'/'+item.path.replace('/','')">
                     {{item.meta.title}}
                   </el-breadcrumb-item>
-                  <el-breadcrumb-item v-else  :to="'/'+item.path.replace('/','')">
+                  <el-breadcrumb-item class="breadcrumb-item" v-else  :to="'/'+item.path.replace('/','')">
+                    <i class="status"></i>
                     {{item.name}}
                   </el-breadcrumb-item>
                 </template>
               </el-breadcrumb>
             </div>
-            <router-view :parentHeight="fullHeight - 140" class="top10"></router-view>
+            <router-view :parentHeight="fullHeight-60" class="top10"></router-view>
           </el-main>
         </el-container>
     </el-container>
@@ -98,7 +98,8 @@
 </template>
 
 <script>
-    export default {
+
+  export default {
         name: "",
         data(){
           return{
@@ -177,7 +178,7 @@
             if(matched&&matched.length>0){
               me.levelList = matched;
             }
-          }
+          },
 
       }
     }
@@ -185,80 +186,45 @@
 
 <style scoped lang="less">
 
-
-  header{
-    padding:0;
+  @-webkit-keyframes rotation{
+    from {-webkit-transform: rotateY(0deg);}
+    to {-webkit-transform: rotateY(360deg);}
   }
+
   .menu-logo{
+    margin-top:10px;
     text-align: center;
-    height:60px;
+    height:65px;
     background: rgba(12, 34, 61, 0.46);
     img {
-      height:inherit;
+      -webkit-transform: rotate(360deg);
+      animation: rotation 10s linear infinite;
+      -moz-animation: rotation 10s linear infinite;
+      -webkit-animation: rotation 10s linear infinite;
+      -o-animation: rotation 10s linear infinite;
     }
   }
-.el-menu-vertical-demo{
+  .el-menu-vertical-demo{
   border-right:2px solid rgba(6, 47, 97, 0.98);
+  background: #05172d !important;
   .el-menu-item:hover{
     background-color: transparent !important;
   }
 
 }
-  .frameHead-leftElement{
-    width:100px;
-    color: #FFF;
-    text-align: center;
-    line-height:55px;
-    float: left;
-    .frameHeader-toggle{
-      height:inherit;
-    }
-    .frameHeader-toggle>i {
-      font-size:30px;
-      line-height:unset;
-      &:hover{
-        color: #409EFF;
-      }
-    }
-
+  .el-breadcrumb__inner{
+  i {
+    display: inline-block;
+    width:8px;
+    height:8px;
+    border-radius: 10px;
+    background: #30EB67;
   }
-  .frameHead-rightElement{
-    float: right;
-    color: #ffffff;
-    padding: 0px 20px;
-    border-left: 1px #33373B solid;
-    display: table-cell;
-    cursor: pointer;
-    line-height:60px;
-    position: relative;
-    .FRbox{
-      min-width:100%;
-      background: #000;
-      position: absolute;
-      top:60px;
-      right:0;
-      z-index:1000;
-      display: none;
-      text-align: center;
-    }
-    &:hover .FRbox{
-      display: block;
-    }
-  }
-  .frameHead-rightElement-search{
-    float: right;
-    color: #FFFFFF;
-    padding:0px 20px;
-    display: table-cell;
-    cursor: pointer;
-    height:60px;
-    line-height:60px;
-  }
+}
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
   }
   .mainNavigation{
-    border-bottom: .5px #D9DEE4 solid;
     line-height: 45px;
     height: 40px;
     text-align: left;

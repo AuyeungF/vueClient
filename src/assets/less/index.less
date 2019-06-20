@@ -1,0 +1,138 @@
+@color:#FFF;
+@fontSize:12px;
+//圆角的兼容性
+.border-radius(@size){
+  border-radius: @size;
+  -webkit-border-radius: @size;
+  -moz-border-radius:@size;
+  -o-box-shadow: @size;
+}
+//阴影兼容
+.box-shadow(@arguments){
+  box-shadow:@arguments;
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow:@arguments;
+  -o-box-shadow:@arguments;
+}
+//清除浮动
+.clearfloat(){
+  content: "";
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+//宽高
+.wh(@w,@h){
+  width:@w;
+  height:@h;
+}
+//外边距
+.margin(@position,@size){
+  margin-@{position}:@size;
+}
+.border(@position,@size,@style,@color){
+  border-@{position}:@size @style @color !important;
+}
+
+body, html,div,header,main,section,ul,li,ol,footer,p{
+  padding:0;
+  margin:0;
+}
+#app, .wrapper, body, html ,.container-bg{
+  .wh(100%,100%);
+  overflow: hidden;
+}
+
+
+.container {
+  .box-shadow(inset 1px 0px 10px #ccc);
+  width:350px;
+  padding:30px;
+  .border-radius(10px);
+  margin:180px auto;
+  background: rgba(255, 255, 255, 0.12);
+
+}
+
+.container-title {
+  color: #FFF;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ffffff75;
+  line-height: 36px;
+}
+
+.el-main {
+  flex:none;
+  padding:10px 20px;
+  font-family: Serif;
+  font-weight:800;
+}
+
+.el-submenu{
+  padding:2px 0;
+  .margin(top,-2px);
+}
+
+
+.dashboard.is-active,.el-submenu.is-opened{
+  .border(top,2px,solid,transparent);
+  .border(bottom,2px,solid,transparent);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(180deg, #0c223d 10%, #061220 55px), linear-gradient(72deg, #f9f7f700, rgba(6, 65, 136, 0.98));
+  width:202px;
+}
+
+.el-submenu.is-opened .el-icon-arrow-down{
+  right:22px;
+}
+
+
+.el-submenu__title:hover,
+.el-submenu__title:focus{
+  background: linear-gradient(180deg, #0c223d 0, #061220 55px) !important;
+}
+
+.el-menu-item-group .el-menu-item.is-active{
+  background: url('../1.png')no-repeat;
+  background-position: center;
+  background-position-y: -55px;
+}
+.el-menu-item.is-active{
+  background-color: transparent !important;
+}
+.dashboard.is-active{
+  width:202px;
+}
+.el-menu--inline{
+  border-right: none;
+}
+.el-menu-item-group .el-menu-item{
+  padding-left:54px !important;
+}
+.el-menu-item-group__title{
+  display: none;
+}
+.top10 {
+  .margin(top, 10px);
+}
+
+.breadcrumb-item .el-breadcrumb__inner{
+  color: #FFF !important;
+}
+/*echarts样式*/
+.echarts {
+  overflow: hidden;
+}
+/*消息提示样式*/
+.el-badge__content.is-fixed{
+  top:10px;
+}
+
+
+
+
+
+
+
+

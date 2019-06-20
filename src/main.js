@@ -9,7 +9,7 @@ import './plugins/element'
 // //按需引入echarts
 import './plugins/echarts'
 //公共样式
-import './assets/css/index.css'
+import './assets/less/index.less'
 //状态管理Store
 import store from './store/index'
 //引入cookies
