@@ -1,14 +1,13 @@
 <template>
   <div class="frameWork" :style="{height:'parentHeight'}">
     <el-form ref="form" :model="search" label-width="80px">
-
     </el-form>
     <el-table
       :data="tableData"
-      style="width: 100%"
-      border
-      :header-cell-style="{background:'#333',color:'#ccc'}"
+      style="width: 100%;background: transparent;"
+      :header-cell-style="{background:'#0c223d',color:'#ccc'}"
       :height="parentHeight - 60 + 'px'"
+      :row-style="tableRowStyle"
       >
       <template v-for="(column,index) in roleList">
         <el-table-column
@@ -123,6 +122,9 @@
         this.getUserInfo();
       },
         methods:{
+          tableRowStyle({row,rowIndex}){
+            return 'background-color:transparent;color:#FFF'
+          },
           getUserInfo(){
             //清除list数据
             this.tableData = [];

@@ -81,24 +81,61 @@
 
                }
              },
+             grid:{
+               x: 80,
+               y: 60,
+               x2: 80,
+               y2: 60,
+               containLabel: true
+             },
              xAxis: [{
                type: 'category',
                boundaryGap: false,
+               axisLine: {
+                 show: false
+               },
+               axisTick: {
+                 show: true,
+                 length: 10,
+                 lineStyle: {
+                   color: "#0c223d"
+                 }
+               },
                axisLabel: {
                  margin: 30,
                  color: '#ffffff'
                },
-               data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'],
+               splitLine: {
+                 show: true,
+                 lineStyle: {
+                   color: '#0c223d'
+                 }
+               },
+               data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
              }],
              yAxis: [{
                type: 'value',
-               splitLine: {
+               axisLine: {
                  show: false
+               },
+               axisTick: {
+                 show: true,
+                 length: 10,
+                 lineStyle: {
+                   color: "#0c223d"
+                 }
+               },
+               splitLine: {
+                 show: true,
+                 lineStyle: {
+                   color: '#0c223d'
+                 }
                },
                axisLabel: {
                  margin: 30,
                  color: '#ffffff'
                },
+
              }],
              series: [{
                name: '本月流量',
@@ -107,19 +144,19 @@
                areaStyle: {
                  normal: {
                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                     { offset: 0.1,  color: 'rgba(255,255,255, 0.1)'},
-                     { offset: 0.4,  color: 'rgba(255,255,255, 0)'}], false),
-                   shadowColor: 'rgba(255,255,255, 0.9)',
-                   shadowBlur: 2
+                     { offset: 0.55,  color: 'rgba(176, 202, 234, 0.3)'},
+                     { offset: 0.85,  color: 'rgb(165, 194, 230,0.02)'}], false),
+                   shadowColor: 'rgba(94, 141, 197, 0.8)',
+                   shadowBlur: 10,
+                   shadowOffsetY:-15
                  }
                },
                itemStyle: {
                  normal: {
-                   color: 'rgba(255,255,255, 0.9)',
-                   shadowColor:'rgba(255,255,255 ,0.1)'
+                   color: 'rgb(162, 192, 228,0.8)'
                  }
                },
-               data: [12330, 12334, 13300, 13444, 13000, 12567, 13400, 12450, 13000, 13200, 12343, 13452, 12345, 12333, 12345, 12456, 13456]
+               data: [15156, 10456, 15541, 1131, 13000, 2567, 3400, 12450, 3000, 3200, 12343, 13452]
              }]
            },
             volume:321,
@@ -140,38 +177,42 @@
   .font(@size){
     font-size:@size;
   }
-.report-data{
-  height: 60px;
-  .amount{
-    .font(25px);
-    .amount-price span:last-child{
-      color: #30EB67;
-      font-size: 15px;
-    }
-    .amount-text{
-      font-size: 15px;
-      color: #CCC;
-    }
-  }
-  .list-item{
-    .list-item-num{
-      font-size:25px;
-      &.volume-num{
-        color: #30EB67;
+  .framework-report{
+    padding:0 20px;
+    .report-data{
+      height: 120px;
+      .amount{
+        .font(30px);
+        color: #FFF;
+        .amount-price span:last-child{
+          color: #30EB67;
+          font-size: 15px;
+        }
+        .amount-text{
+          font-size: 15px;
+          color: #CCC;
+        }
       }
-      &.shipment-num{
-        color: #bf37e0;
-      }
-      &.cargo-num{
-        color: #ec4646;
-      }
+      .list-item{
+        .list-item-num{
+          font-size:25px;
+          &.volume-num{
+            color: #30EB67;
+          }
+          &.shipment-num{
+            color: #bf37e0;
+          }
+          &.cargo-num{
+            color: #ec4646;
+          }
 
-    }
-    .list-item-text{
-      color: #ccc;
-      font-size:13px;
+        }
+        .list-item-text{
+          color: #ccc;
+          font-size:13px;
+        }
+      }
     }
   }
-}
 
 </style>

@@ -103,20 +103,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-  .login-container{
-    .login-btn button{
-      width:100%;
-    }
-    .sign-in{
-      margin-top:10px;
-      text-align: right;
-      a{
-        color: #FFF;
-        &:hover{
-          color: #0078FF;
-        }
-      }
-    }
+  .container-bg{
+    background: linear-gradient(180deg, #0c223d 10px, #061220 50%);
+    .login-container{
+       .login-btn button{
+         width:100%;
+       }
+       .sign-in{
+         margin-top:10px;
+         text-align: right;
+         a{
+           color: #FFF;
+           &:hover{
+             color: #0078FF;
+           }
+         }
+       }
+     }
   }
-
 </style>

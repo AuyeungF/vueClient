@@ -1,6 +1,22 @@
 <template>
    <div class="line-chart top10">
-     <div id="charts" :class="className" :id="id" :style="{height:height,width:width}" ref="myEchart" />
+     <div class="charts-title">
+       <el-row type="flex" class="row-bg" justify="space-between">
+         <el-col :span="9">
+           <div class="grid-content bg-purple">
+             <div>本月报表</div>
+           </div>
+         </el-col>
+         <el-col :span="9">
+           <div class="grid-content bg-purple ">
+             <div style="text-align: right;color: #CCC;">上月报表</div>
+           </div>
+         </el-col>
+       </el-row>
+     </div>
+     <div class="charts-canvas">
+       <div id="charts" :class="className" :id="id" :style="{height:height,width:width}" ref="myEchart" />
+     </div>
    </div>
 </template>
 
@@ -60,11 +76,28 @@
     }
 </script>
 
-<style scoped>
-  .line-chart{
-    box-shadow: 1px 0px 10px #ccc;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+<style  scoped lang="less">
+  @color:#FFF;
+
+  .color(@color) {
+    color: @color;
+  }
+  .border-style(@background){
+    background:@background;
+    font-size:15px;
+    padding:5px 15px;
+    border:2px transparent solid;
+    border-image:linear-gradient(to right,rgba(6, 47, 97, 0.98),#061220) 1 10;
+  }
+  .charts-title{
+    height:40px;
+    line-height:40px;
+    color: @color;
+    .border-style(#05172d);
+
+  }
+  .charts-canvas{
+    .border-style(transparent);
+    border-top:none;
   }
 </style>

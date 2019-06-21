@@ -78,13 +78,13 @@
           <el-main style="width: 100%;">
             <!--面包屑导航-->
             <div class="mainNavigation">
-              <el-breadcrumb separator="/" style="display: inline-block">
+              <i class="status"></i>
+              <el-breadcrumb separator="/" style="display: inline-block;">
                 <template v-for="item in levelList">
                   <el-breadcrumb-item v-if="item.path !== '/dashboard'" :key="item.path" :to="'/'+item.path.replace('/','')">
                     {{item.meta.title}}
                   </el-breadcrumb-item>
                   <el-breadcrumb-item class="breadcrumb-item" v-else  :to="'/'+item.path.replace('/','')">
-                    <i class="status"></i>
                     {{item.name}}
                   </el-breadcrumb-item>
                 </template>
@@ -212,15 +212,7 @@
   }
 
 }
-  .el-breadcrumb__inner{
-  i {
-    display: inline-block;
-    width:8px;
-    height:8px;
-    border-radius: 10px;
-    background: #30EB67;
-  }
-}
+
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
   }
@@ -229,5 +221,12 @@
     height: 40px;
     text-align: left;
     padding-left: 10px;
+    i {
+      display: inline-block;
+      width:10px;
+      height:10px;
+      border-radius: 10px;
+      background: #30EB67;
+    }
   }
 </style>
