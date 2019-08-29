@@ -4,10 +4,12 @@
       <div class="container-title">登录中心</div>
       <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"  class="demo-ruleForm">
         <el-form-item prop="username" ref="username">
-          <el-input type="text" v-model="ruleForm2.username" autocomplete="off" placeholder="账号"></el-input>
+          <el-input type="text" v-model="ruleForm2.username" autocomplete="off" placeholder="账号" @keypress.enter.native ="submitForm('ruleForm')">
+          </el-input>
         </el-form-item>
         <el-form-item prop="pass" ref="password">
-          <el-input type="password" v-model="ruleForm2.pass" autocomplete="off" placeholder="请输入密码"></el-input>
+          <el-input type="password" v-model="ruleForm2.pass" autocomplete="off" placeholder="请输入密码" @keypress.enter.native ="submitForm('ruleForm')">
+          </el-input>
         </el-form-item>
         <div class="login-btn">
           <el-button type="primary" @click="submitForm('ruleForm2')">登录</el-button>
@@ -24,7 +26,6 @@
 </template>
 
 <script>
-  import {validateUsername,validatePass} from '../assets/js/validate'
 export default {
   name: 'login',
   data () {
@@ -34,15 +35,12 @@ export default {
         pass: '',
       },
       rules2: {
-        username: [
-          { validator: validateUsername, trigger: 'blur' }
-        ],
-        pass: [
-          { validator: validatePass, trigger: 'blur' }
-        ]
+        username : [{ required: true, message: "请输入用户名", trigger: "blur" }],
+        pass  : [{ required: true, message: "请输入密码", trigger: "blur" }]
       },
-
     }
+  },
+  created() {
   },
   methods:{
     submitForm(formName) {
@@ -55,7 +53,6 @@ export default {
           };
           this.postRequest('/api/login',param)
             .then(res=>{
-
               if(res.code == 5) {
                 this.$alert(res.message, '提示', {
                   confirmButtonText: '确定',
@@ -74,7 +71,6 @@ export default {
                   }
                 })
               } else {
-
                 that.$store.dispatch('setToken',param.username);
                 const loading = this.$loading({
                   lock: true,

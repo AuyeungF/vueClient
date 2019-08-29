@@ -96,7 +96,6 @@ router.post('/api/createAccount', (req, res, next) => {
 router.post('/api/login',(req,res,next)=>{
   var username = req.body.username;
   var password = req.body.password;
-
   //查询用户
   User.findOne({
     username: username
@@ -157,6 +156,22 @@ router.get('/api/getLoginUserAll',(req,res,next) => {
     }
   })
 });
+//查询用户信息
+router.post('/api/findUserInfo',(req,res,next) => {
+ var param = req.body;
+ //过滤对象的属性
+ removeProperty(param);
+
+ Role.find(param).then((data)=>{
+    if(data !== null) {
+    jsonData.data = data;
+    jsonData.code = 200;
+    jsonData.message = "success";
+    res.json(jsonData);
+    return;
+  }
+  })
+})
 //获取用户信息分页处理
 router.post('/api/getLoginUser/page',(req,res,next)=>{
   var page = req.body.currentPage;
@@ -200,6 +215,16 @@ router.delete('/api/delUser/:id',(req,res,next) => {
       return;
     })
 });
+
+//除去对象中空的属性
+function removeProperty(object){
+  for(prop in object){
+    if (object[prop]==='') {
+        delete object[prop]
+    }
+  }
+  return object;
+}
 
 
 module.exports = router

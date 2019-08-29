@@ -41,43 +41,10 @@
         </div>
         <!-- 右边主题内容 -->
         <el-container>
-          <!--&lt;!&ndash; 头部 &ndash;&gt;-->
-          <!--<el-header>-->
-            <!--<div class="frameHead-leftElement">-->
-              <!--<div class="frameHeader-toggle" @click="menuToggle">-->
-                <!--<i class="el-icon-s-fold" v-if="!isCollapse"></i>-->
-                <!--<i class="el-icon-s-unfold" v-if="isCollapse"></i>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="frameHead-rightElement">-->
-              <!--&lt;!&ndash; <img src="" alt="">&ndash;&gt;-->
-              <!--{{username}}-->
-              <!--<div class="FRbox">-->
-                <!--<div class="fr-content">-->
-                  <!--<div class="frc-width">-->
-                    <!--账号设置-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="fr-content">-->
-                  <!--<div class="frc-width" @click=" logout">退出登录</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="frameHead-rightElement" >-->
-              <!--<el-badge :value="value" :max="99" class="item" :hidden="value<=0 ? true:false">-->
-               <!--消息-->
-              <!--</el-badge>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;<div class="frameHead-rightElement-search">&ndash;&gt;-->
-              <!--&lt;!&ndash;<el-input placeholder="站内搜索" size="mini" clearable>&ndash;&gt;-->
-                <!--&lt;!&ndash;<i slot="prefix" class="el-input__icon el-icon-search"></i>&ndash;&gt;-->
-              <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
           <!--</el-header>-->
           <el-main style="width: 100%;">
             <!--面包屑导航-->
-            <div class="mainNavigation">
+            <div class="mainNavigation clearfix">
               <i class="status"></i>
               <el-breadcrumb separator="/" style="display: inline-block;">
                 <template v-for="item in levelList">
@@ -89,8 +56,11 @@
                   </el-breadcrumb-item>
                 </template>
               </el-breadcrumb>
+              <div class="main-tool" @click="logOut()">
+                <i class="el-icon-switch-button"></i>
+              </div>
             </div>
-            <router-view :parentHeight="fullHeight-60" class="top10"></router-view>
+            <router-view :parentHeight="fullHeight-58"></router-view>
           </el-main>
         </el-container>
     </el-container>
@@ -151,14 +121,15 @@
           let vm = this;
           vm.username = this.$store.getters.token;
         },
-        logout(){
+        logOut(){
           this.$confirm('此操作将退出账号，是否继续?', '提示',{
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
           }).then( ()=>{
             //退出登录清除用户信息
-            this.Cookies.remove('token');
+            // this.Cookies.remove('token');
+            localStorage.removeItem('token')
             this.$store.dispatch('setToken','');
             this.$store.dispatch('setRole','');
             this.$router.push('/login');
@@ -166,7 +137,7 @@
 
         },
           // 初始化面包屑数据
-          getBreadcrumb() {
+        getBreadcrumb() {
             let me = this;
             let matched;
             if(this.$route.path == '/dashboard'){
@@ -174,7 +145,6 @@
             } else {
               matched = this.$route.matched.filter(item=>item.meta);
             }
-
             if(matched&&matched.length>0){
               me.levelList = matched;
             }
@@ -221,12 +191,19 @@
     height: 40px;
     text-align: left;
     padding-left: 10px;
-    i {
+    .status {
       display: inline-block;
       width:10px;
       height:10px;
       border-radius: 10px;
       background: #30EB67;
     }
+  }
+  .main-tool{
+    display: inline-block;
+    float: right;
+    color: #FFF;
+    cursor: pointer;
+    font-size: 20px;
   }
 </style>

@@ -15,7 +15,7 @@
        </el-row>
      </div>
      <div class="charts-canvas">
-       <div id="charts" :class="className" :id="id" :style="{height:height,width:width}" ref="myEchart" />
+       <div id="charts" :class="className" :id="id" :style="{height:height-190 + 'px',width:width}" ref="myEchart" />
      </div>
    </div>
 </template>
@@ -38,8 +38,8 @@
           default:'100%'
         },
         height:{
-          type:String,
-          default:'400px'
+          type:Number,
+          default:'390'
         },
         chartData:{
           type:Object,
@@ -52,6 +52,7 @@
         }
       },
       mounted() {
+      
         this.initChart();
         window.addEventListener('resize', this.init, 20);
       },

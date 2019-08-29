@@ -46,7 +46,7 @@
          </el-col>
        </el-row>
      </div>
-      <line-chart :chartData="options"/>
+      <line-chart :chartData="options" :height="parentHeight"/>
    </div>
 </template>
 
@@ -56,9 +56,6 @@
     export default {
         name: "",
         props:['parentHeight'],
-        mounted(){
-
-        },
         components:{
           lineChart,
           },
@@ -164,11 +161,6 @@
             cargo:1234
           }
         },
-        computed:{
-
-        },
-        methods: {
-        }
     }
 
 </script>

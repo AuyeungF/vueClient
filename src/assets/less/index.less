@@ -127,6 +127,17 @@ body, html,div,header,main,section,ul,li,ol,footer,p{
   color: #FFF;
 }
 
+/*el-table hover事件*/
+.el-table--enable-row-hover .el-table__body tr:hover>td{
+  background-color:transparent !important
+}
+.el-table--enable-row-hover .el-table__row:hover{
+  background: linear-gradient(to left, rgba(55, 77, 102, 0.205) , rgba(3, 38, 78, 0.788))
+}
+/* el-pagination 分页样式 */
+.el-pagination button:disabled,.el-pager li, .el-pagination .el-input__inner {
+  background-color: transparent;
+}
 
 
 

@@ -1,58 +1,89 @@
 <template>
   <div class="frameWork" :style="{height:'parentHeight'}">
-    <el-form ref="form" :model="search" label-width="80px">
-    </el-form>
-    <el-table
-      :data="tableData"
-      style="width: 100%;background: transparent;"
-      :header-cell-style="{background:'#0c223d',color:'#ccc'}"
-      :height="parentHeight - 60 + 'px'"
-      :row-style="tableRowStyle"
-      >
-      <template v-for="(column,index) in roleList">
-        <el-table-column
-          align="center"
-          :prop="column.prop"
-          :label="column.label"
-          v-if="column.prop != 'btn'&& column.prop != 'permissions'"
-        >
-        </el-table-column>
-        <el-table-column v-else-if="column.prop == 'permissions'"
-                         :prop="column.prop"
-                         :label="column.label"
-                         align="center">
-          <template slot-scope="scope">
-            <el-tag type="success" v-if="scope.row.permissions == '超级管理员'">{{scope.row.permissions}}</el-tag>
-            <el-tag type="warning" v-else-if="scope.row.permissions == '管理员'">{{scope.row.permissions}}</el-tag>
-            <el-tag type="danger" v-else>{{scope.row.permissions}}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column v-else
-                         :prop="column.prop"
-                         :label="column.label"
-                         align="center">
-          <template slot-scope="scope">
-            <el-button v-for="(item,num) in column.options"
-                       :key="num"
-                       :type="item.type"
-            @click="item.func(scope.$index,scope.row)">
-              {{item.title}}
-            </el-button>
-          </template>
-        </el-table-column>
-      </template>
-    </el-table>
-    <div class="pagination">
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-size="10"
-        layout="total, prev, pager, next, jumper"
-        :total="total">
-      </el-pagination>
+    <div class="find-list">
+        <el-form ref="form" :model="search" label-width="80px">
+            <el-row :gutter="20">
+              <el-col :span="6">
+                  <el-form-item label="用户名:">
+                      <el-input v-model="search.obj1" 
+                      placeholder="用户" 
+                      @keyup.delete.native="onSubmit()"  
+                      @keyup.enter.native="onSubmit()">
+                    </el-input>
+                  </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                  <el-form-item label="权限:">
+                      <el-input v-model="search.obj2" 
+                      placeholder="权限" 
+                      @keyup.delete.native="onSubmit()"
+                      @keyup.enter.native="onSubmit()">
+                    </el-input>
+                  </el-form-item>
+              </el-col>
+              <el-col :span="2">
+                  <el-button type="primary" @click="onSubmit()">查询</el-button>
+              </el-col>
+            </el-row>
+          </el-form>
     </div>
+  
+
+    <div class="per-list-show">
+      <el-table
+        :data="tableData"
+        style="width: 100%;background: transparent;"
+        :header-cell-style="{background:'#0c223d',color:'#ccc'}"
+        :height="parentHeight - 121 + 'px'"
+        :row-style="tableRowStyle"
+        >
+        <template v-for="(column,index) in roleList">
+          <el-table-column
+            align="center"
+            :prop="column.prop"
+            :label="column.label"
+            v-if="column.prop != 'btn'&& column.prop != 'permissions'"
+          >
+          </el-table-column>
+          <el-table-column v-else-if="column.prop == 'permissions'"
+                           :prop="column.prop"
+                           :label="column.label"
+                           align="center">
+            <template slot-scope="scope">
+              <el-tag type="success" v-if="scope.row.permissions == '超级管理员'">{{scope.row.permissions}}</el-tag>
+              <el-tag type="warning" v-else-if="scope.row.permissions == '管理员'">{{scope.row.permissions}}</el-tag>
+              <el-tag type="danger" v-else>{{scope.row.permissions}}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column v-else
+                           :prop="column.prop"
+                           :label="column.label"
+                           align="center">
+            <template slot-scope="scope">
+              <el-button v-for="(item,num) in column.options"
+                         :key="num"
+                         :type="item.type"
+                         size="mini"
+              @click="item.func(scope.$index,scope.row)">
+                {{item.title}}
+              </el-button>
+            </template>
+          </el-table-column>
+        </template>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-size="10"
+          layout="total, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
+      </div>
+    </div>
+  
     <!--查看弹框-->
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+    <el-dialog title="编辑用户信息" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="用户名:" :label-width="formLabelWidth">
           <el-input v-model="form.role" autocomplete="off" style="width: 240px;" disabled></el-input>
@@ -96,7 +127,7 @@
                 options:[
                   {
                     title: '编辑',
-                    type: 'danger',
+                    type: 'success',
                     func: this.editTag
                   },
                   {
@@ -126,14 +157,9 @@
             return 'background-color:transparent;color:#FFF'
           },
           getUserInfo(){
-            //清除list数据
-            this.tableData = [];
           this.getRequest('/api/getLoginUserAll').then(res=>{
             let result = res.data;
-            for (var i=0;i<result.length;i++) {
-              let list = result[i];
-              this.tableData.push(list);
-            }
+            this.tableData = result;
             this.currentPage = res.currentPage;
             this.total = res.total;
           }).catch(err=>{
@@ -173,14 +199,26 @@
             //清除数据
             this.tableData = [];
             this.postRequest('/api/getLoginUser/page',param).then(res=>{
+
               let result = res.data;
-              for (var i=0;i<result.length;i++) {
-                let list = result[i];
-                this.tableData.push(list);
-              }
+              this.tableData = result;
               this.currentPage = res.currentPage;
               this.total = res.total;
             });
+          },
+          onSubmit(){
+            //根据条件查询
+           var param = {};
+           param.role = this.search.obj1;
+           param.permissions = this.search.obj2;
+            this.postRequest('/api/findUserInfo',param).then(res=>{
+              let result = res.data;
+              this.tableData = result;
+              this.currentPage = res.currentPage;
+              this.total = res.total;
+            }).catch(err=>{
+              console.log(err);
+            })
           }
         }
     }
@@ -191,4 +229,8 @@
   padding:14px;
   text-align: right;
 }
+.find-list{
+  margin-top: 18px;
+}
+
 </style>
