@@ -18,7 +18,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mongodb": "^3.2.3",
-    "mongoose": "^5.5.6",
+    "mongoose": "^5.7.5",
     "style-loader": "^0.23.1",
     "vue": "^2.6.10",
     "vue-echarts": "^4.0.3",
